@@ -1,6 +1,11 @@
 import './App.css';
 
 function App() {
+  let voices = [];
+  voices = speechSynthesis.getVoices();
+
+  const message = new SpeechSynthesisUtterance();
+
   return (
     <div className="App">
       <div className="header">
@@ -8,8 +13,24 @@ function App() {
         <h3 className="headerTitleSub">Convert text to speech</h3>
       </div>
       <div className="textbox">
-        <h4 className="voiceSelect">Choose Voice</h4>
-        <select id="voices" className="select"></select>
+        <h4 className="voiceSelect">Pick a Voice</h4>
+        <select
+          id="voices"
+          className="select"
+          onChange={(event) => {
+            message.voice = voices.find(
+              (voice) => voice.name === event.target.value
+            );
+          }}
+        >
+          {voices.map((voice) => {
+            return (
+              <option value={voice.name}>
+                {voice.name} &mdash; {voice.lang}
+              </option>
+            );
+          })}
+        </select>
         <textarea
           placeholder="Enter text to read..."
           className="textArea"

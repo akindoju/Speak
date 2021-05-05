@@ -60,11 +60,6 @@
 }
 
 .select {
-  background-image: linear-gradient(
-    to right bottom,
-    rgba(41, 152, 255, 0.85),
-    rgba(86, 67, 250, 0.85)
-  );
   color: rgb(25, 13, 92);
   font-size: 12px;
   width: 100%;
