@@ -1,10 +1,21 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [textAreaText, setTextAreaText] = useState('');
+
   let voices = [];
   voices = speechSynthesis.getVoices();
 
   const message = new SpeechSynthesisUtterance();
+
+  const speakText = () => {
+    speechSynthesis.speak(message);
+  };
+
+  const setTextMessage = (text) => {
+    message.text = text;
+  };
 
   return (
     <div className="App">
@@ -34,8 +45,19 @@ function App() {
         <textarea
           placeholder="Enter text to read..."
           className="textArea"
+          onChange={(e) => {
+            e.preventDefault();
+            setTextAreaText(e.target.value);
+          }}
         ></textarea>
-        <button>Read Text</button>
+        <button
+          onClick={() => {
+            setTextMessage(textAreaText);
+            speakText();
+          }}
+        >
+          Read Text
+        </button>
       </div>
     </div>
   );
