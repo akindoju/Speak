@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 
 const Homepage = () => {
   const [textAreaText, setTextAreaText] = useState('');
+  const [message, setMessage] = useState(new SpeechSynthesisUtterance());
 
   const voices = speechSynthesis.getVoices();
-
-  const message = new SpeechSynthesisUtterance();
 
   const setVoice = (event) => {
     message.voice = voices.find((voice) => voice.name === event.target.value);
