@@ -17,6 +17,7 @@
   color: transparent;
   font-size: 3rem;
   margin: 0;
+  animation: slideInTop 1s ease-out;
 }
 
 .headerTitleSub {
@@ -29,6 +30,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: slideInBehind 2.5s;
 }
 
 .voiceSelect {
@@ -47,11 +49,11 @@
 
 .textbox {
   width: 70%;
-  /* background-image: linear-gradient(
+  background-image: linear-gradient(
     to right bottom,
     rgba(41, 152, 255, 0.55),
     rgba(86, 67, 250, 0.55)
-  ); */
+  );
   color: white;
   padding: 20px;
   border-radius: 5px;
@@ -127,4 +129,29 @@ button::after {
 button:hover::after {
   transform: scaleX(1.4) scaleY(1.6);
   opacity: 0;
+}
+
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  80% {
+    transform: translateY(10%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInBehind {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const Homepage = () => {
   const [textAreaText, setTextAreaText] = useState(
-    'Hey there! Welcome to this text to speech converter. Input your text and select language to get started'
+    'Hey there! Welcome to this text to speech converter. Input your text and select language to get started.'
   );
   const [options, setOptions] = useState(false);
   const [message] = useState(new SpeechSynthesisUtterance()); //to avoid rerender on every text area change
