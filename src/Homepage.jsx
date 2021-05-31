@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Homepage = () => {
   const [textAreaText, setTextAreaText] = useState('');
-  const [message, setMessage] = useState(new SpeechSynthesisUtterance());
+  const [options, setOptions] = useState(false);
+  const [message] = useState(new SpeechSynthesisUtterance()); //to avoid rerender on every text area change
 
   const voices = speechSynthesis.getVoices();
 
@@ -17,6 +18,10 @@ const Homepage = () => {
   const setTextMessage = (text) => {
     message.text = text;
   };
+
+  useEffect(() => {
+    setOptions(true);
+  }, []);
 
   return (
     <div>
@@ -36,13 +41,14 @@ const Homepage = () => {
           {/* <option key="default" value="Google US English en-US">
             Default English
           </option> */}
-          {voices.map((voice) => {
-            return (
-              <option key={voice.name} value={voice.name}>
-                {voice.name} {voice.lang}
-              </option>
-            );
-          })}
+          {options &&
+            voices.map((voice) => {
+              return (
+                <option key={voice.name} value={voice.name}>
+                  {voice.name} {voice.lang}
+                </option>
+              );
+            })}
         </select>
         <textarea
           placeholder="Enter text to read"
