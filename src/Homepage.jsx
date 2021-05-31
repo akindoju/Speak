@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 
 const Homepage = () => {
-  const [textAreaText, setTextAreaText] = useState('');
+  const [textAreaText, setTextAreaText] = useState(
+    'Hey there! Welcome to this text to speech converter. Input your text and select language to get started'
+  );
   const [options, setOptions] = useState(false);
   const [message] = useState(new SpeechSynthesisUtterance()); //to avoid rerender on every text area change
+
+  useEffect(() => {
+    setOptions(true);
+  }, []);
 
   const voices = speechSynthesis.getVoices();
 
@@ -19,15 +25,11 @@ const Homepage = () => {
     message.text = text;
   };
 
-  useEffect(() => {
-    setOptions(true);
-  }, []);
-
   return (
     <div>
       <div className="header">
-        <h1 className="headerTitle">Speak</h1>
-        <h3 className="headerTitleSub">Convert text to speech</h3>
+        <h1 className="headerTitle">TTS</h1>
+        <h3 className="headerTitleSub">Text to Speech Converter</h3>
       </div>
       <div className="textbox">
         <h4 className="voiceSelect">Pick a Voice</h4>
@@ -38,9 +40,9 @@ const Homepage = () => {
             setVoice(event);
           }}
         >
-          {/* <option key="default" value="Google US English en-US">
+          <option key="default" value="Google US English en-US">
             Default English
-          </option> */}
+          </option>
           {options &&
             voices.map((voice) => {
               return (
@@ -57,6 +59,7 @@ const Homepage = () => {
             e.preventDefault();
             setTextAreaText(e.target.value);
           }}
+          value={textAreaText}
         />
         <button
           onClick={(e) => {
