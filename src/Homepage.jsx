@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 
 const Homepage = () => {
   const [textAreaText, setTextAreaText] = useState(
-    'Hey there! Welcome to this text to speech converter. Input your text and select language to get started.'
+    'Hey there! Welcome to this text-to-speech converter. Input your text and select language to get started.'
   );
+  const [defaultVoice, setDefaultVoice] = useState('');
   const [options, setOptions] = useState(false);
   const [message] = useState(new SpeechSynthesisUtterance()); //to avoid rerender on every text area change
 
@@ -11,11 +12,23 @@ const Homepage = () => {
     setOptions(true);
   }, []);
 
+  useEffect(() => {
+    setDefaultVoice('Google UK English Female');
+  }, []);
+
   const voices = speechSynthesis.getVoices();
 
   const setVoice = (event) => {
     message.voice = voices.find((voice) => voice.name === event.target.value);
   };
+
+  useEffect(() => {
+    const setVoice = () => {
+      message.voice = voices.find((voice) => voice.name === defaultVoice);
+    };
+
+    setVoice();
+  });
 
   const speakText = () => {
     speechSynthesis.speak(message);
@@ -36,13 +49,13 @@ const Homepage = () => {
         <select
           className="select"
           onChange={(event) => {
-            event.preventDefault();
             setVoice(event);
           }}
         >
-          <option key="default" value="Google US English en-US">
+          <option key="default" value={defaultVoice}>
             Default English
           </option>
+
           {options &&
             voices.map((voice) => {
               return (
@@ -55,9 +68,8 @@ const Homepage = () => {
         <textarea
           placeholder="Enter text to read"
           className="textArea"
-          onChange={(e) => {
-            e.preventDefault();
-            setTextAreaText(e.target.value);
+          onChange={({ target }) => {
+            setTextAreaText(target.value);
           }}
           value={textAreaText}
         />
