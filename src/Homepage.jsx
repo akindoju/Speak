@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const Homepage = () => {
   const [textAreaText, setTextAreaText] = useState(
-    // 'Hey there! Welcome to this text-to-speech converter. Input your text and select language to get started.'
-    'hey there'
+    'Hey there! Welcome to this text-to-speech converter. Input your text and select language to get started.'
   );
   const [options, setOptions] = useState(false);
   const message = useRef(new SpeechSynthesisUtterance()); //to avoid rerender on every text area change
@@ -19,6 +18,7 @@ const Homepage = () => {
     setOptions(true);
   }, []);
 
+  // to get initial voice on page render
   useEffect(() => {
     const defaultVoices = speechSynthesis.getVoices();
 
@@ -34,8 +34,8 @@ const Homepage = () => {
   return (
     <div>
       <div className="header">
-        <h1 className="headerTitle">Speak</h1>
-        <h3 className="headerTitleSub">Convert text to speech</h3>
+        <h1 className="headerTitle">TTS</h1>
+        <h3 className="headerTitleSub">Text to Speech Converter</h3>
       </div>
       <div className="textbox">
         <h4 className="voiceSelect">Pick a Voice</h4>
@@ -44,8 +44,9 @@ const Homepage = () => {
           onChange={({ target }) => {
             message.current.voice = voices.find(
               (voice) => voice.name === target.value
-            );
+            ); // setting voice
             speechSynthesis.cancel();
+            console.log(message.current.rate);
           }}
         >
           <option key="default" value={defaultVoice.current}>
