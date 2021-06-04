@@ -150,3 +150,20 @@ button:hover::after {
     opacity: 100;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .App {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .textbox {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .textArea {
+    padding: 2px;
+  }
+}
